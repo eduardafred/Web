@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!--
+    <div class="calculator">
+        <input type="text" id="display" disabled>
+        <div class="buttons">
+            <button onclick="clearDisplay()">C</button>
+            <button onclick="appendToDisplay('7')">7</button>
+            <button onclick="appendToDisplay('8')">8</button>
+            <button onclick="appendToDisplay('9')">9</button>
+            <button onclick="appendToDisplay('/')">/</button>
+            <button onclick="appendToDisplay('4')">4</button>
+            <button onclick="appendToDisplay('5')">5</button>
+            <button onclick="appendToDisplay('6')">6</button>
+            <button onclick="appendToDisplay('*')">*</button>
+            <button onclick="appendToDisplay('1')">1</button>
+            <button onclick="appendToDisplay('2')">2</button>
+            <button onclick="appendToDisplay('3')">3</button>
+            <button onclick="appendToDisplay('-')">-</button>
+            <button onclick="appendToDisplay('0')">0</button>
+            <button onclick="calculate()">=</button>
+            <button onclick="appendToDisplay('+')">+</button>
+        </div>
+    </div>
+    <script src="calc.js"></script>
+    -->
+
+    <!--Estrutura de repetições - FOR Tabuada-->
+    <script>
+        //Tabuada
+        let j, i, result = 0;
+        /*for(j = 0; j <= 10; j++){
+            console.log('Tabuada do ' + j)
+            for(i = 0; i <= 10; i++){
+                result = j * i;
+                console.log(j + "x" + i + " = " + result);
+            }
+            console.log('\n')
+        }*/
+
+        let name = "Eduarda";
+        name = name.toLowerCase();
+        for(i = 0; i <= name.length; i++){
+            if(name[i] === 'a' || name[i] === 'e' || name[i] === 'i' || name[i] === 'o' || name[i] === 'u'){
+                result++;
+            }
+            console.log(name[i]);
+        }
+        console.log('número de vogais: ' + result)
+
+
+    </script>
+
+</body>
+</html>
