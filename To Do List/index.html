@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To Do List IFPR</title>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Icons" rel="stylesheet">
+    <script src="https://unpkg.com/feather-icons"></script>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="media-query.css">
+
+</head>
+<body>
+    <main>
+        <div class="formulario">
+            <div class="container py-5">
+                <div class="imagem-container">
+                    <img src="https://images.ctfassets.net/n80ui2xgiaml/6POH36zaJYxXTyjmBSOKtb/8c75ffc935f549d07110fa41ab104e69/Brasoes-IFPR.png?w=243&h=300&q=100" alt="Descrição" class="imagem-responsiva">
+                    <h1>To Do List IFPR</h1>
+                </div>
+            <br>
+                <br>
+                <!-- Formulário de Adicionar Atividade -->
+                <div class="mb-4">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <input type="text" id="atividadeInput" class="form-control" placeholder="Digite sua atividade" required>
+                        </div>
+                        <div class="col-md-3">
+                            <select id="prioridadeSelect" class="form-control" required>
+                                <option value="alta">Alta</option>
+                                <option value="media">Média</option>
+                                <option value="baixa">Baixa</option>
+                            </select>
+                        </div>
+                        <div class="col-md-1">
+                            <button type="button" class="btn btn-success w-100" onclick="adicionarAtividade()">Adicionar</button>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row mb-4">
+                        <div class="col-md-12">
+                            <input type="text" id="pesquisaInput" class="form-control" placeholder="Pesquisar atividades...">
+                            <button type="button" class="btn btn-success w-100" onclick="pesquisarAtividades    ()">Pesquisar</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Lista de Atividades -->
+                <div id="listaAtividades"></div>
+            </div>
+        </div>
+    </main>
+    <!-- Carregar o script após o HTML -->
+    <script src="script.js"></script>
+</body>
+</html>
