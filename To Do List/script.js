@@ -1,3 +1,45 @@
+// Função para carregar as atividades do localStorage
+function carregarAtividades() {
+    const atividades = JSON.parse(localStorage.getItem('atividades')) || [];
+    console.log('Atividades carregadas:', atividades); // Verifique se as atividades estão sendo carregadas corretamente
+    
+    const listaAtividades = document.getElementById('listaAtividades');
+    listaAtividades.innerHTML = '';  // Limpa a lista
+
+    atividades.forEach((atividade, index) => {
+        const divAtividade = document.createElement('div');
+        divAtividade.classList.add('atividade');
+
+        let corDeFundo;
+        if (atividade.prioridade === 'alta') {
+            corDeFundo = '#ffcccc';
+        } else if (atividade.prioridade === 'media') {
+            corDeFundo = '#ffffcc';
+        } else {
+            corDeFundo = '#ccffcc';
+        }
+
+        divAtividade.style.backgroundColor = corDeFundo;
+
+        divAtividade.innerHTML = `
+            <span style="color: ${atividade.prioridade === 'alta' ? 'red' : atividade.prioridade === 'media' ? 'orange' : 'green'};">
+                ${atividade.texto} ${atividade.concluida ? '(Concluída)' : ''}
+            </span>
+            <div>
+                <button class="btn btn-warning btn-sm" onclick="editarAtividade(${index})"><i class="fas fa-edit"></i> Editar</button>
+                <button class="btn btn-danger btn-sm" onclick="cancelarAtividade(${index})"><i class="fas fa-times"></i> Cancelar</button>
+                <button class="btn btn-success btn-sm" onclick="concluirAtividade(${index})"><i class="fas fa-check"></i> Concluir</button>
+            </div>
+        `;
+
+        listaAtividades.appendChild(divAtividade); // adiciona ao à lista um novo elemento
+    });
+}
+
+
+// Carregar atividades ao iniciar a página
+window.addEventListener('load', carregarAtividades);
+
 const atividadeInput = document.getElementById('atividade');
 const prioridadeSelect = document.getElementById('prioridade');
 const adicionarBtn = document.getElementById('adicionarBtn');
@@ -55,61 +97,47 @@ adicionarBtn.addEventListener('click', function() {
 // Inicializar a cor do texto no início
 atualizarCorPrioridade();
 
-// Função para carregar as atividades do localStorage
-function carregarAtividades() {
-    const atividades = JSON.parse(localStorage.getItem('atividades')) || [];
-    const listaAtividades = document.getElementById('listaAtividades');
-    listaAtividades.innerHTML = '';  // Limpa a lista
 
-    atividades.forEach((atividade, index) => {
-        const divAtividade = document.createElement('div');
-        divAtividade.classList.add('atividade');
 
-        // Definir a cor de fundo com base na prioridade
-        let corDeFundo;
-        if (atividade.prioridade === 'alta') {
-            corDeFundo = '#ffcccc';
-        } else if (atividade.prioridade === 'media') {
-            corDeFundo = '#ffffcc';
-        } else {
-            corDeFundo = '#ccffcc';
-        }
-
-        divAtividade.style.backgroundColor = corDeFundo;
-
-        divAtividade.innerHTML = `
-            <span style="color: ${atividade.prioridade === 'alta' ? 'red' : atividade.prioridade === 'media' ? 'orange' : 'green'};">
-                ${atividade.texto} ${atividade.concluida ? '(Concluída)' : ''}
-            </span>
-            <div>
-                <button class="btn btn-warning btn-sm" onclick="editarAtividade(${index})"><i class="fas fa-edit"></i> Editar</button>
-                <button class="btn btn-danger btn-sm" onclick="cancelarAtividade(${index})"><i class="fas fa-times"></i> Cancelar</button>
-                <button class="btn btn-success btn-sm" onclick="concluirAtividade(${index})"><i class="fas fa-check"></i> Concluir</button>
-            </div>
-        `;
-
-        listaAtividades.appendChild(divAtividade); // adiciona ao à lista um novo elemento
-    });
-}
-
-// Função para adicionar uma atividade
 function adicionarAtividade() {
+    // 1. Referencia o campo de entrada onde o usuário digita a atividade
     const atividadeInput = document.getElementById('atividadeInput');
+    
+    // 2. Referencia o seletor de prioridade onde o usuário escolhe a prioridade da atividade
     const prioridadeSelect = document.getElementById('prioridadeSelect');
+    
+    // 3. Pega o valor do campo de entrada (atividade) e remove espaços no começo e no final
     const atividadeTexto = atividadeInput.value.trim();
+    
+    // 4. Pega o valor selecionado no seletor de prioridade
     const prioridade = prioridadeSelect.value;
 
+    // 5. Verifica se o campo de texto está vazio
     if (atividadeTexto === '') {
+        // 6. Exibe um alerta pedindo para o usuário inserir uma atividade
         alert('Por favor, insira uma atividade!');
+        // 7. Retorna da função para evitar continuar com a execução caso a atividade esteja vazia
         return;
     }
 
+    // 8. Tenta obter a lista de atividades do localStorage, fazendo a conversão para json. Se não houver, cria um array vazio.
     const atividades = JSON.parse(localStorage.getItem('atividades')) || [];
-    atividades.push({ texto: atividadeTexto, prioridade: prioridade, concluida: false });
+    
+    // 9. Adiciona um novo objeto de atividade à lista
+    atividades.push({
+        texto: atividadeTexto,  // Texto da atividade
+        prioridade: prioridade, // Prioridade da atividade
+        concluida: false        // Marca como não concluída inicialmente
+    });
+
+    // 10. Atualiza o localStorage com a nova lista de atividades
     localStorage.setItem('atividades', JSON.stringify(atividades));
 
-    atividadeInput.value = '';  // Limpar campo após adicionar
-    carregarAtividades();  // Atualizar a lista
+    // 11. Limpa o campo de entrada de atividade após adicionar a nova atividade
+    atividadeInput.value = '';
+
+    // 12. Chama a função carregarAtividades() para atualizar a exibição da lista de atividades
+    carregarAtividades();  
 }
 
 // Função para editar uma atividade
@@ -198,6 +226,3 @@ function pesquisarAtividades() {
 
 
 document.getElementById('pesquisaInput').addEventListener('input', pesquisarAtividades);
-
-// Carregar atividades ao iniciar a página
-window.onload = carregarAtividades;
