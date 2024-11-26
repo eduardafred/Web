@@ -101,11 +101,31 @@ button:hover {
 /* Estilo do texto dentro de uma atividade */
 .atividade span {
     flex-grow: 1;
+    margin-right: 10px; /* Adiciona um pequeno espaçamento entre o texto e os botões */
 }
 
 /* Estilo dos botões dentro de uma atividade */
+.atividade .botao-container {
+    display: flex; /* Usamos flexbox para alinhar os botões horizontalmente */
+    justify-content: flex-start; /* Alinha os botões à esquerda */
+    gap: 10px; /* Adiciona um pequeno espaço entre os botões */
+}
+
+/* Estilo para os botões dentro da atividade */
 .atividade button {
-    margin-left: 5px;
+    padding: 8px 15px;
+    background-color: #4CAF50;
+    color: white;
+    font-size: 14px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+/* Efeito hover nos botões */
+.atividade button:hover {
+    background-color: #45a049;
 }
 
 /* Estilos das atividades de acordo com a prioridade */
@@ -134,27 +154,4 @@ button:hover {
     margin-top: 20px;
     flex-grow: 1;
     overflow-y: auto;  
-}
-
-/* Estilos do botão de pesquisa */
-button#pesquisarBtn {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #007BFF;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-}
-
-/* Estilo do botão de pesquisa quando o mouse passa sobre ele (efeito hover) */
-button#pesquisarBtn:hover {
-    background-color: #0056b3;
-}
-
-
-/* Estilo do ícone material design */ 
-.material-icons {
-    font-size: 24px;
 }

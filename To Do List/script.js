@@ -41,9 +41,9 @@ adicionarBtn.addEventListener('click', function() {
         divAtividade.style.backgroundColor = '#ccffcc';
     }
 
-    //define o conteúdo do texto de div atividade e coloca a primeira letra do status em maiúscula (letra no pos 0 para upperCase)
-    divAtividade.textContent = `${atividadeTexto} - Prioridade: ${prioridade.charAt(0).toUpperCase() + prioridade.slice(1)}`; 
-    
+    //define o conteúdo do texto de div atividade e coloca a primeira letra do status em maiúscula
+    divAtividade.textContent = `${atividadeTexto} - Prioridade: ${prioridade.charAt(0).toUpperCase() + prioridade.slice(1)}`;
+
     //adiciona ao elemento pai listaAtividades o elemento filho, divAtividade
     listaAtividades.appendChild(divAtividade);
 
@@ -57,9 +57,7 @@ atualizarCorPrioridade();
 
 // Função para carregar as atividades do localStorage
 function carregarAtividades() {
-    const atividades = JSON.parse(localStorage.getItem('atividades')) || []; /*localStorage.getItem('atividades') resgata os dados que estavam no item 
-    atividades, a o JSON.parse converte esses dados armazenados geralmente em Strings para um array ou objeto no formato JSON, e se não houver dados em localstorage atividades
-    é definida como um array vazio (|| [])*/
+    const atividades = JSON.parse(localStorage.getItem('atividades')) || [];
     const listaAtividades = document.getElementById('listaAtividades');
     listaAtividades.innerHTML = '';  // Limpa a lista
 
@@ -142,56 +140,64 @@ function cancelarAtividade(index) {
 }
 
 function pesquisarAtividades() {
-    const termoPesquisa = document.getElementById('pesquisaInput').value.trim().toLowerCase();// o trim remove qualquer espaços extras no começo ou final do texto
-    const atividades = JSON.parse(localStorage.getItem('atividades')) || [];
-    const listaAtividades = document.getElementById('listaAtividades');
-    listaAtividades.innerHTML = ''; // Limpa a lista
+    const termoPesquisa = document.getElementById('pesquisaInput').value.trim().toLowerCase(); // Obtém o valor de pesquisa
+    const atividades = JSON.parse(localStorage.getItem('atividades')) || []; // Recupera as atividades do localStorage
+    const listaAtividades = document.getElementById('listaAtividades'); // Obtém o elemento da lista de atividades
+    listaAtividades.innerHTML = ''; // Limpa a lista de atividades exibida
 
-    // Filtrar as atividades que correspondem ao termo de pesquisa
+    // Filtrar as atividades que contêm o termo de pesquisa no texto (não precisa ser igual, pode ser parte do texto)
     const atividadesFiltradas = atividades.filter(atividade =>
-        atividade.texto.toLowerCase().includes(termoPesquisa) //includes == inclui. Se o termoPesquisa está incluso no texto de alguma atividade, o retorno será true
+        atividade.texto.toLowerCase().includes(termoPesquisa) // Verifica se o texto da atividade inclui o termo de pesquisa
     );
 
     // Verificar se há atividades correspondentes
     if (atividadesFiltradas.length === 0) {
-        listaAtividades.innerHTML = '<p>Nenhuma atividade encontrada.</p>';
+        listaAtividades.innerHTML = '<p>Nenhuma atividade encontrada.</p>'; // Exibe uma mensagem caso não encontre atividades
         return;
     }
 
-    // Renderizar apenas as atividades filtradas
+    // Renderizar as atividades filtradas com seus botões
     atividadesFiltradas.forEach((atividade, index) => {
-        const divAtividade = document.createElement('div');
-        divAtividade.classList.add('atividade');
+        const divAtividade = document.createElement('div'); // Cria um novo elemento div para cada atividade
+        divAtividade.classList.add('atividade'); // Adiciona a classe CSS 'atividade'
 
-        // Definir a cor de fundo com base na prioridade
+        // Definir a cor de fundo da atividade com base na prioridade
         let corDeFundo;
         if (atividade.prioridade === 'alta') {
-            corDeFundo = '#ffcccc';
+            corDeFundo = '#ffcccc'; // Cor para prioridade alta
         } else if (atividade.prioridade === 'media') {
-            corDeFundo = '#ffffcc';
+            corDeFundo = '#ffffcc'; // Cor para prioridade média
         } else {
-            corDeFundo = '#ccffcc';
+            corDeFundo = '#ccffcc'; // Cor para prioridade baixa
         }
-        divAtividade.style.backgroundColor = corDeFundo;
+        divAtividade.style.backgroundColor = corDeFundo; // Define o fundo da atividade com a cor correspondente
 
         // Determinar o status da atividade
-        const status = atividade.concluida ? 'Concluída' : 'Pendente'; //condicional, caso atividade concluida == true, recebe o status de Concluída
+        const status = atividade.concluida ? 'Concluída' : 'Pendente'; // Se a atividade estiver concluída, exibe "Concluída", senão "Pendente"
 
-        // Renderizar a atividade com o status
+        // Definir o conteúdo HTML da atividade, incluindo texto, prioridade e status
         divAtividade.innerHTML = `
             <span>
-                <strong>${atividade.texto}</strong> 
-                - Prioridade: <em>${atividade.prioridade}</em> 
-                - Status: <em>${status}</em>
+                <strong>${atividade.texto}</strong>  <!-- Texto da atividade -->
+                - Prioridade: <em>${atividade.prioridade}</em>  <!-- Prioridade da atividade -->
+                - Status: <em>${status}</em>  <!-- Status da atividade -->
             </span>
+            <div>
+                <!-- Botões para editar, cancelar e concluir a atividade -->
+                <button class="btn btn-warning btn-sm" onclick="editarAtividade(${index})"><i class="fas fa-edit"></i> Editar</button>
+                <button class="btn btn-danger btn-sm" onclick="cancelarAtividade(${index})"><i class="fas fa-times"></i> Cancelar</button>
+                <button class="btn btn-success btn-sm" onclick="concluirAtividade(${index})"><i class="fas fa-check"></i> Concluir</button>
+            </div>
         `;
+
+        // Adiciona o novo elemento div (atividade) à lista de atividades
         listaAtividades.appendChild(divAtividade);
     });
 }
 
 
-document.getElementById('pesquisaInput').addEventListener('input', pesquisarAtividades);
 
+document.getElementById('pesquisaInput').addEventListener('input', pesquisarAtividades);
 
 // Carregar atividades ao iniciar a página
 window.onload = carregarAtividades;
