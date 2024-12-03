@@ -1,0 +1,39 @@
+<html>
+    <head>
+    <title>ViaCEP Webservice</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <!-- Adicionando Javascript -->
+    <script src="script.js"></script>
+    <link rel="stylesheet" href="style.css"> 
+    </head>
+
+    <body>
+    <!-- Inicio do formulario -->
+     <h2></h2>
+    <div class="formulario">
+      <form method="get" action=".">
+        <a>CEP:</a>
+        <label>
+        <input name="cep" type="text" id="cep" value="" size="10" maxlength="9"
+               onblur="pesquisacep(this.value);" /></label><br />
+        <a>Rua:</a>
+        <label>
+        <input name="rua" type="text" id="rua" size="60" /></label><br />
+        <a>Bairro:</a>
+        <label>
+        <input name="bairro" type="text" id="bairro" size="40" /></label><br />
+        <a>Cidade:</a>
+        <label>
+        <input name="cidade" type="text" id="cidade" size="40" /></label><br />
+        <a>Estado:</a>
+        <label>
+        <input name="uf" type="text" id="uf" size="2" /></label><br />
+        <a>IBGE:</a>
+        <label>
+        <input name="ibge" type="text" id="ibge" size="8" /></label><br />
+      </form>
+    </div>
+    </body>
+
+    </html>
