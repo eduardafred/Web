@@ -1,37 +1,63 @@
 body {
     display: flex;
-    justify-content: center;
-    font-family: Arial, sans-serif;
+    flex-direction: column; /* Alinha os elementos em coluna */
+    justify-content: flex-start; /* Começa do topo */
+    margin-top: 5%;
     align-items: center;
     height: 100vh;
     background-color:  #415994;
     font-family: Arial, sans-serif;
 }
 
-.formulario{
-    background-color: #93adee;
-    height: 60vh;
-    width: 60vw;
+/* Estilo do formulário */
+.formulario {
+    background-color: #93adeed4;
+    width: 50vw;
     display: flex;
+    flex-direction: column; /* Alinha os itens dentro do formulário */
     align-items: center;
     border-radius: 5vh;
+    padding: 20px; /* Adicionado padding para espaçamento interno */
     text-align: right;
 }
 
-a{
-    font-size: 4vh;
-    color: #415994;
-    margin-left: 10vh;
+a {
+    font-size: 3vh;
+    color: #1a2e61;
+    margin-right: auto; /* Empurra o texto para a esquerda */
+    margin-bottom: 5px;
 }
 
-input{
-    border-radius: 1.0vh;
-    border-color: #415994;
-    border: 7vh;
-    margin-top: 5vh;
-    margin-left: 5vh;
-    width: 80vh;
+input {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 80%;
     height: 4vh;
-    margin-bottom: 0.4vh;
+    margin-bottom: 4vh;
+    background-color: #f9f9f9d2;
 }
 
+/* Div dos resultados */
+.resultados {
+    width: 50vw; /* Mesma largura do formulário */
+    margin-top: 20px; /* Espaçamento entre o formulário e os resultados */
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5vh;
+    background-color: #f9f9f9d2;
+}
+
+button {
+    margin-top: 10px;
+    padding: 10px 15px;
+    border: none;
+    background-color: #415994;
+    color:white;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #41589495;
+    color: #182e66;
+}
